@@ -1,0 +1,28 @@
+html {
+  background-color: rgb(93, 168, 230);
+}
+
+.app {
+  text-align: center;
+}
+
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #b4aeae;
+  }
+
+  tr:hover {
+    background-color: #b5adad;
+  }
+}
