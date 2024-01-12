@@ -14,6 +14,7 @@ const UserList: React.FC<{}> = () => {
 
   const [ascending, setAscending] = useState(true);
   const [sortedStudents, setSortedStudents] = useState(studentList);
+  const [sortedMentors, setSortedMentors] = useState(mentorList);
 
   // 生徒をscoreでソート
   const handleSortToggle = () => {
@@ -26,6 +27,12 @@ const UserList: React.FC<{}> = () => {
     setAscending((prevAscending) => !prevAscending);
     const newSortedStudents = sortStudents(studentList, "studyMinutes", !ascending);
     setSortedStudents(newSortedStudents);
+  };
+
+  const handleSortMentorToggle = () => {
+    setAscending((prevAscending) => !prevAscending);
+    const newSortedMentors = sortMentor(mentorList, !ascending);
+    setSortedMentors(newSortedMentors);
   };
 
   // sortする関数
@@ -42,6 +49,22 @@ const UserList: React.FC<{}> = () => {
 
     return sortedStudents;
   }
+
+  const sortMentor = (mentors: User[],  ascending: boolean = true): User[] => {
+    const sortedMentors = [...mentors]
+
+    sortedMentors.sort((a, b) => {
+      const valueA =  a.experienceDays ?? 0
+      const valueB = b.experienceDays ?? 0
+
+      return ascending ? valueA - valueB : valueB - valueA
+    })
+
+    return sortedMentors
+  }
+
+
+
 
 
 
@@ -249,7 +272,9 @@ const UserList: React.FC<{}> = () => {
                   ))}
                 </TabPanel>
                 <TabPanel>
-                  {mentorList.map((user) => (
+                <p>{ascending ? "昇順" : "降順"}</p>
+                <button onClick={handleSortMentorToggle}>scoreでソートする</button>
+                  {sortedMentors.map((user) => (
                     <div>
                       <table className='table'>
                         <tbody>
@@ -291,7 +316,7 @@ const UserList: React.FC<{}> = () => {
                           </tr>
                           <tr>
                             <th>実務経験月数(メンターのみ)</th>
-                            <td>{user.role}</td>
+                            <td>{user.experienceDays}</td>
                           </tr>
                           <tr>
                             <th>勉強時間(生徒のみ)</th>
