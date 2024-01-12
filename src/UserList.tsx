@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { USER_LIST } from './userListData'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -7,11 +7,53 @@ import { User } from './types';
 
 
 const UserList: React.FC<{}> = () => {
+
   const studentList: User[] = USER_LIST.filter((user) => user.role === "student")
 
   const mentorList: User[] = USER_LIST.filter((user) => user.role === "mentor")
 
-  
+  const [ascending, setAscending] = useState(true);
+  const [sortedStudents, setSortedStudents] = useState(studentList);
+
+  // 生徒をscoreでソート
+  const handleSortToggle = () => {
+    setAscending((prevAscending) => !prevAscending);
+    const newSortedStudents = sortStudents(studentList, "score", !ascending);
+    setSortedStudents(newSortedStudents);
+  };
+
+  const handleSortStudyMinutesToggle = () => {
+    setAscending((prevAscending) => !prevAscending);
+    const newSortedStudents = sortStudents(studentList, "studyMinutes", !ascending);
+    setSortedStudents(newSortedStudents);
+  };
+
+  // sortする関数
+  const sortStudents = (students: User[], sortBy: string, ascending: boolean = true): User[] => {
+    // 引数で渡ってきた配列を複製
+    const sortedStudents = [...students];
+
+    sortedStudents.sort((a, b) => {
+      const valueA = sortBy === "studyMinutes" ? a.studyMinutes ?? 0  : a.score ?? 0 ;
+      const valueB = sortBy === "studyMinutes" ? b.studyMinutes ?? 0  : b.score ?? 0 ;
+
+      return ascending ? valueA - valueB : valueB - valueA
+    })
+
+    return sortedStudents;
+  }
+
+
+
+//   // studyMinutesで昇順にソートされた生徒リスト
+// const sortedStudentsByMinutesAsc: User[] = sortStudents(studentList, "studyMinutes");
+
+// // scoreで降順にソートされた生徒リスト
+// const sortedStudentsByScoreDesc: User[] = sortStudents(studentList, "score", false);
+
+// console.log(sortedStudentsByMinutesAsc);
+// console.log(sortedStudentsByScoreDesc);
+
 
   return (
     <div>
@@ -114,7 +156,10 @@ const UserList: React.FC<{}> = () => {
                   ))}
                 </TabPanel>
                 <TabPanel>
-                  {studentList.map((user) => (
+                  <button onClick={handleSortToggle}>scoreでソートする</button>
+                  <button onClick={handleSortStudyMinutesToggle}>StudyMinutesでソートする</button>
+                  <p>{ascending ? "昇順" : "降順"}</p>
+                  {sortedStudents.map((user) => (
                     <div>
                       <table className='table'>
                         <tbody>
@@ -160,7 +205,7 @@ const UserList: React.FC<{}> = () => {
                           </tr>
                           <tr>
                             <th>勉強時間(生徒のみ)</th>
-                            <td>{user.role}</td>
+                            <td>{user.studyMinutes}</td>
                           </tr>
                           <tr>
                             <th>課題番号(生徒のみ)</th>
@@ -172,7 +217,7 @@ const UserList: React.FC<{}> = () => {
                           </tr>
                           <tr>
                             <th>ハピネススコア(生徒のみ)</th>
-                            <td>{user.role}</td>
+                            <td>{user.score}</td>
                           </tr>
                           <tr>
                             <th>対応可能なメンター（課題番号が、担当範囲に含まれているメンターの名前を表示）</th>
