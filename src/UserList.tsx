@@ -63,19 +63,34 @@ const UserList: React.FC<{}> = () => {
     return sortedMentors
   }
 
+  // mentorのavailableStartCode, availableEndCodeの数字の範囲の配列を作成する
+  const generateAvailableCodeRange = (startCode: number, endCode: number): number[] => {
+    const codeRange: number[] = [];
 
+    for (let i = startCode; i <= endCode; i++) {
+      codeRange.push(i);
+    }
+    return codeRange
+  }
 
+  const resultArray: number[] = generateAvailableCodeRange(103, 408);
 
+  // 一致する数字を取得できた。ここで取得できた数字がtaskcodeと一致する生徒を取得し配列なら配列にする
+  const matchingNumbers: number[] = resultArray.filter((number) => number === 203);
 
+  console.log(resultArray)
+  console.log(matchingNumbers[0]) //203
 
-//   // studyMinutesで昇順にソートされた生徒リスト
-// const sortedStudentsByMinutesAsc: User[] = sortStudents(studentList, "studyMinutes");
-
-// // scoreで降順にソートされた生徒リスト
-// const sortedStudentsByScoreDesc: User[] = sortStudents(studentList, "score", false);
-
-// console.log(sortedStudentsByMinutesAsc);
-// console.log(sortedStudentsByScoreDesc);
+  // TODO　こんな感じで作る　まだ途中
+  // const filteredMentors = USER_LIST.filter(
+  //   (user) =>
+  //     user.role === 'mentor' &&
+  //     user.availableStartCode !== undefined &&
+  //     user.availableEndCode !== undefined &&
+  //     user.availableStartCode <= 408 &&
+  //     user.availableEndCode >= 103 &&
+  //     USER_LIST.find((student) => student.role === 'student' && student.taskCode === user.taskCode)
+  // );
 
 
   return (
@@ -88,6 +103,7 @@ const UserList: React.FC<{}> = () => {
                   <Tab><h3>メンターのみ</h3></Tab>
                 </TabList>
 
+                {/* ユーザー一覧 */}
                 <TabPanel className="tabPanel">
                   {USER_LIST.map((user) => (
                     <div>
@@ -107,77 +123,77 @@ const UserList: React.FC<{}> = () => {
                           </tr>
                           <tr>
                             <th>メールアドレス</th>
-                            <td>{user.role}</td>
+                            <td>{user.email}</td>
                           </tr>
                           <tr>
                             <th>年齢</th>
-                            <td>{user.role}</td>
+                            <td>{user.age}</td>
                           </tr>
                           <tr>
                             <th>郵便番号</th>
-                            <td>{user.role}</td>
+                            <td>{user.postCode}</td>
                           </tr>
                           <tr>
                             <th>電話番号</th>
-                            <td>{user.role}</td>
+                            <td>{user.phone}</td>
                           </tr>
                           <tr>
                             <th>趣味</th>
-                            <td>{user.role}</td>
+                            <td>{user.hobbies?.join(', ')}</td>
                           </tr>
                           <tr>
                             <th>ホームページ</th>
-                            <td>{user.role}</td>
-                          </tr>
-                          <tr>
-                            <th>実務経験月数(メンターのみ)</th>
-                            <td>{user.role}</td>
+                            <td>{user.url}</td>
                           </tr>
                           <tr>
                             <th>勉強時間(生徒のみ)</th>
-                            <td>{user.role}</td>
+                            <td>{user.studyMinutes}</td>
                           </tr>
                           <tr>
                             <th>課題番号(生徒のみ)</th>
-                            <td>{user.role}</td>
+                            <td>{user.taskCode}</td>
                           </tr>
                           <tr>
                             <th>勉強中の言語(生徒のみ)</th>
-                            <td>{user.role}</td>
+                            <td>{user.studyLangs?.join(', ')}</td>
                           </tr>
                           <tr>
                             <th>ハピネススコア(生徒のみ)</th>
-                            <td>{user.role}</td>
+                            <td>{user.score}</td>
                           </tr>
+                          {/* TODO */}
                           <tr>
                             <th>対応可能なメンター（課題番号が、担当範囲に含まれているメンターの名前を表示）</th>
-                            <td>{user.role}</td>
+                            <td></td>
                           </tr>
                           <tr>
                             <th>実務経験月数(メンターのみ)</th>
-                            <td>{user.role}</td>
+                            <td>{user.experienceDays}</td>
                           </tr>
                           <tr>
                             <th>現場で使っている言語(メンターのみ)</th>
-                            <td>{user.role}</td>
+                            <td>{user.useLangs?.join(', ')}</td>
                           </tr>
                           <tr>
                             <th>担当できる課題番号初め(メンターのみ)</th>
-                            <td>{user.role}</td>
+                            <td>{user.availableStartCode}</td>
                           </tr>
                           <tr>
                             <th>担当できる課題番号終わり(メンターのみ)</th>
-                            <td>{user.role}</td>
+                            <td>{user.availableEndCode}</td>
                           </tr>
+                          {/* TODO */}
                           <tr>
                             <th>対応可能な生徒（課担当範囲に含んでいる生徒の名前を表示）(メンターのみ)</th>
-                            <td>{user.role}</td>
+                            <td></td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                   ))}
                 </TabPanel>
+
+                {/* 生徒一覧 */}
                 <TabPanel>
                   <button onClick={handleSortToggle}>scoreでソートする</button>
                   <button onClick={handleSortStudyMinutesToggle}>StudyMinutesでソートする</button>
@@ -200,77 +216,56 @@ const UserList: React.FC<{}> = () => {
                           </tr>
                           <tr>
                             <th>メールアドレス</th>
-                            <td>{user.role}</td>
+                            <td>{user.email}</td>
                           </tr>
                           <tr>
                             <th>年齢</th>
-                            <td>{user.role}</td>
+                            <td>{user.age}</td>
                           </tr>
                           <tr>
                             <th>郵便番号</th>
-                            <td>{user.role}</td>
+                            <td>{user.postCode}</td>
                           </tr>
                           <tr>
                             <th>電話番号</th>
-                            <td>{user.role}</td>
+                            <td>{user.phone}</td>
                           </tr>
                           <tr>
                             <th>趣味</th>
-                            <td>{user.role}</td>
+                            <td>{user.hobbies?.join(', ')}</td>
                           </tr>
                           <tr>
                             <th>ホームページ</th>
-                            <td>{user.role}</td>
+                            <td>{user.url}</td>
                           </tr>
                           <tr>
-                            <th>実務経験月数(メンターのみ)</th>
-                            <td>{user.role}</td>
-                          </tr>
-                          <tr>
-                            <th>勉強時間(生徒のみ)</th>
+                            <th>勉強時間</th>
                             <td>{user.studyMinutes}</td>
                           </tr>
                           <tr>
-                            <th>課題番号(生徒のみ)</th>
-                            <td>{user.role}</td>
+                            <th>課題番号</th>
+                            <td>{user.taskCode}</td>
                           </tr>
                           <tr>
-                            <th>勉強中の言語(生徒のみ)</th>
-                            <td>{user.role}</td>
+                            <th>勉強中の言語</th>
+                            <td>{user.studyLangs?.join(', ')}</td>
                           </tr>
                           <tr>
-                            <th>ハピネススコア(生徒のみ)</th>
+                            <th>ハピネススコア</th>
                             <td>{user.score}</td>
                           </tr>
+                          {/* TODO */}
                           <tr>
                             <th>対応可能なメンター（課題番号が、担当範囲に含まれているメンターの名前を表示）</th>
-                            <td>{user.role}</td>
-                          </tr>
-                          <tr>
-                            <th>実務経験月数(メンターのみ)</th>
-                            <td>{user.role}</td>
-                          </tr>
-                          <tr>
-                            <th>現場で使っている言語(メンターのみ)</th>
-                            <td>{user.role}</td>
-                          </tr>
-                          <tr>
-                            <th>担当できる課題番号初め(メンターのみ)</th>
-                            <td>{user.role}</td>
-                          </tr>
-                          <tr>
-                            <th>担当できる課題番号終わり(メンターのみ)</th>
-                            <td>{user.role}</td>
-                          </tr>
-                          <tr>
-                            <th>対応可能な生徒（課担当範囲に含んでいる生徒の名前を表示）(メンターのみ)</th>
-                            <td>{user.role}</td>
+                            <td></td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                   ))}
                 </TabPanel>
+
+                {/* メンター一覧 */}
                 <TabPanel>
                 <p>{ascending ? "昇順" : "降順"}</p>
                 <button onClick={handleSortMentorToggle}>scoreでソートする</button>
@@ -292,71 +287,48 @@ const UserList: React.FC<{}> = () => {
                           </tr>
                           <tr>
                             <th>メールアドレス</th>
-                            <td>{user.role}</td>
+                            <td>{user.email}</td>
                           </tr>
                           <tr>
                             <th>年齢</th>
-                            <td>{user.role}</td>
+                            <td>{user.age}</td>
                           </tr>
                           <tr>
                             <th>郵便番号</th>
-                            <td>{user.role}</td>
+                            <td>{user.postCode}</td>
                           </tr>
                           <tr>
                             <th>電話番号</th>
-                            <td>{user.role}</td>
+                            <td>{user.phone}</td>
                           </tr>
                           <tr>
                             <th>趣味</th>
-                            <td>{user.role}</td>
+                            <td>{user.hobbies?.join(', ')}</td>
                           </tr>
                           <tr>
                             <th>ホームページ</th>
-                            <td>{user.role}</td>
+                            <td>{user.url}</td>
                           </tr>
                           <tr>
-                            <th>実務経験月数(メンターのみ)</th>
+                            <th>実務経験月数</th>
                             <td>{user.experienceDays}</td>
                           </tr>
                           <tr>
-                            <th>勉強時間(生徒のみ)</th>
-                            <td>{user.role}</td>
+                            <th>現場で使っている言語</th>
+                            <td>{user.useLangs?.join(', ')}</td>
                           </tr>
                           <tr>
-                            <th>課題番号(生徒のみ)</th>
-                            <td>{user.role}</td>
+                            <th>担当できる課題番号初め</th>
+                            <td>{user.availableStartCode}</td>
                           </tr>
                           <tr>
-                            <th>勉強中の言語(生徒のみ)</th>
-                            <td>{user.role}</td>
+                            <th>担当できる課題番号終わり</th>
+                            <td>{user.availableEndCode}</td>
                           </tr>
-                          <tr>
-                            <th>ハピネススコア(生徒のみ)</th>
-                            <td>{user.role}</td>
-                          </tr>
-                          <tr>
-                            <th>対応可能なメンター（課題番号が、担当範囲に含まれているメンターの名前を表示）</th>
-                            <td>{user.role}</td>
-                          </tr>
-                          <tr>
-                            <th>実務経験月数(メンターのみ)</th>
-                            <td>{user.role}</td>
-                          </tr>
-                          <tr>
-                            <th>現場で使っている言語(メンターのみ)</th>
-                            <td>{user.role}</td>
-                          </tr>
-                          <tr>
-                            <th>担当できる課題番号初め(メンターのみ)</th>
-                            <td>{user.role}</td>
-                          </tr>
-                          <tr>
-                            <th>担当できる課題番号終わり(メンターのみ)</th>
-                            <td>{user.role}</td>
-                          </tr>
+                          {/* TODO  */}
                           <tr>
                             <th>対応可能な生徒（課担当範囲に含んでいる生徒の名前を表示）(メンターのみ)</th>
-                            <td>{user.role}</td>
+                            <td></td>
                           </tr>
                         </tbody>
                       </table>
