@@ -70,7 +70,8 @@ const MentorList = () => {
                 </tr>
                 <tr>
                   <th>趣味</th>
-                  <td>{user.hobbies?.join(', ')}</td>
+                  {/* <td>{user.hobbies?.join(', ')}</td> */}
+                  <td>{user.hobbies}</td>
                 </tr>
                 <tr>
                   <th>ホームページ</th>
@@ -82,7 +83,8 @@ const MentorList = () => {
                 </tr>
                 <tr>
                   <th>現場で使っている言語</th>
-                  <td>{user.useLangs?.join(', ')}</td>
+                  <td>{user.useLangs}</td>
+                  {/* <td>{user.useLangs?.join(', ')}</td> */}
                 </tr>
                 <tr>
                   <th>担当できる課題番号初め</th>

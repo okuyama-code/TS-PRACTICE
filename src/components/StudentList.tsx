@@ -73,7 +73,8 @@ const StudentList = () => {
               </tr>
               <tr>
                 <th>趣味</th>
-                <td>{user.hobbies?.join(', ')}</td>
+                {/* <td>{user.hobbies?.join(', ')}</td> */}
+                <td>{user.hobbies}</td>
               </tr>
               <tr>
                 <th>ホームページ</th>
@@ -89,7 +90,8 @@ const StudentList = () => {
               </tr>
               <tr>
                 <th>勉強中の言語</th>
-                <td>{user.studyLangs?.join(', ')}</td>
+                {/* <td>{user.studyLangs?.join(', ')}</td> */}
+                <td>{user.studyLangs}</td>
               </tr>
               <tr>
                 <th>ハピネススコア</th>

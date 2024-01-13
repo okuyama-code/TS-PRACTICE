@@ -1,7 +1,7 @@
 import React from 'react'
 import { USER_LIST } from '../userListData'
 
-const Users = () => {
+const UserList = () => {
   return (
     <div>
       {USER_LIST.map((user) => (
@@ -38,7 +38,8 @@ const Users = () => {
                           </tr>
                           <tr>
                             <th>趣味</th>
-                            <td>{user.hobbies?.join(', ')}</td>
+                            {/* <td>{user.hobbies?.join(', ')}</td> */}
+                            <td>{user.hobbies}</td>
                           </tr>
                           <tr>
                             <th>ホームページ</th>
@@ -54,7 +55,7 @@ const Users = () => {
                           </tr>
                           <tr>
                             <th>勉強中の言語(生徒のみ)</th>
-                            <td>{user.studyLangs?.join(', ')}</td>
+                            {/* <td>{user.studyLangs}</td> */}
                           </tr>
                           <tr>
                             <th>ハピネススコア(生徒のみ)</th>
@@ -94,4 +95,4 @@ const Users = () => {
   )
 }
 
-export default Users
+export default UserList
