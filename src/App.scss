@@ -26,3 +26,14 @@ html {
     background-color: #b5adad;
   }
 }
+
+.sortBtn {
+  padding: 5px;
+  background-color: #b4aeae;
+  border-radius: 5px;
+  margin-right: 10px;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}

@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.scss';
-import UserList from './UserList';
+import Main from './Main';
 
 function App() {
   return (
     <div className="app">
-      <UserList />
+      <Main />
     </div>
   );
 }
