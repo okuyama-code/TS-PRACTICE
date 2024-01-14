@@ -47,36 +47,17 @@ const Main: React.FC<{}> = () => {
   }
 
 
+  const students: User[] = USER_LIST.filter((user) => user.role === "student")
 
+  const filterStudentByTaskCode = (availableStartCode: number, availableEndCode: number) => {
+    const filterStudents = students.filter((student) => student.taskCode !== undefined &&availableStartCode <= student.taskCode && student.taskCode <= availableEndCode)
+    console.log(filterStudents);
 
-  // mentorのavailableStartCode, availableEndCodeの数字の範囲の配列を作成する
-  const generateAvailableCodeRange = (startCode: number, endCode: number): number[] => {
-    const codeRange: number[] = [];
+    const studentNames = filterStudents.map(student => student.name);
+    console.log(studentNames);
 
-    for (let i = startCode; i <= endCode; i++) {
-      codeRange.push(i);
-    }
-    return codeRange
+    return studentNames
   }
-
-  const resultArray: number[] = generateAvailableCodeRange(103, 408);
-
-  // 一致する数字を取得できた。ここで取得できた数字がtaskcodeと一致する生徒を取得し配列なら配列にする
-  const matchingNumbers: number[] = resultArray.filter((number) => number === 203);
-
-  console.log(resultArray)
-  console.log(matchingNumbers[0]) //203
-
-  // TODO　こんな感じで作る　まだ途中
-  // const filteredMentors = USER_LIST.filter(
-  //   (user) =>
-  //     user.role === 'mentor' &&
-  //     user.availableStartCode !== undefined &&
-  //     user.availableEndCode !== undefined &&
-  //     user.availableStartCode <= 408 &&
-  //     user.availableEndCode >= 103 &&
-  //     USER_LIST.find((student) => student.role === 'student' && student.taskCode === user.taskCode)
-  // );
 
 
   return (
@@ -126,7 +107,7 @@ const Main: React.FC<{}> = () => {
 
                 {/* メンター一覧 */}
                 <TabPanel>
-                  <MentorList />
+                  <MentorList filterStudentByTaskCode={filterStudentByTaskCode} />
                 </TabPanel>
               </Tabs>
             </div>

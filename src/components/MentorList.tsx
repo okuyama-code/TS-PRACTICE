@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import { User } from '../types';
 import { USER_LIST } from '../userListData';
 
-const MentorList = () => {
+interface MentorListProps {
+  filterStudentByTaskCode: any
+}
+
+const MentorList: React.FC<MentorListProps> = ({ filterStudentByTaskCode }) => {
   const [ascending, setAscending] = useState(true);
   const mentorList: User[] = USER_LIST.filter((user) => user.role === "mentor")
   const [sortedMentors, setSortedMentors] = useState(mentorList);
@@ -37,7 +41,7 @@ const MentorList = () => {
       <button onClick={handleSortMentorToggle} className='sortBtn'>scoreでソートする</button>
       <p>{ascending ? "昇順" : "降順"}</p>
       {sortedMentors.map((user) => (
-          <div>
+        <div key={user.id}>
             <table className='table'>
               <tbody>
                 <tr>
@@ -96,8 +100,8 @@ const MentorList = () => {
                 </tr>
                 {/* TODO  */}
                 <tr>
-                  <th>対応可能な生徒（課担当範囲に含んでいる生徒の名前を表示）(メンターのみ)</th>
-                  <td></td>
+                  <th>対応可能な生徒</th>
+                  <td>{filterStudentByTaskCode(user.availableStartCode, user.availableEndCode).join(', ')}</td>
                 </tr>
               </tbody>
             </table>
