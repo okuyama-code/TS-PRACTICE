@@ -6,7 +6,7 @@ export interface User {
   age: number;
   postCode: string;
   phone: string;
-  hobbies: string[] | string;
+  hobbies: string[];
   url: string;
   experienceDays?: number;
   useLangs?: string[];

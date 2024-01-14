@@ -19,20 +19,25 @@ const Main: React.FC<{}> = () => {
   const [age, setAge] = useState(0);
   const [postCode, setPostCode] = useState("");
   const [phone, setPhone] = useState("");
-  // TODO配列はどのようにinputで入力するのだろう？
-  const [hobbies, setHobbies] = useState([]);
-  // const [hobbies, setHobbies] = useState("");
+  const [hobbies, setHobbies] = useState<string[]>([]);
+  const [hobby1, setHobby1] = useState("");
+  const [hobby2, setHobby2] = useState("");
+  const [hobby3, setHobby3] = useState("");
   const [url, setUrl] = useState("");
   const [studyMinutes, setStudyMinutes] = useState(0);
-  const [taskCode, setTaskCode] = useState(0);
+  const [taskCode, setTaskCode] = useState(101);
   const [studyLangs, setStudyLangs] = useState([]);
-  // const [studyLangs, setStudyLangs] = useState("");
+  const [studyLang1, setStudyLang1] = useState("");
+  const [studyLang2, setStudyLang2] = useState("");
+  const [studyLang3, setStudyLang3] = useState("");
   const [score, setScore] = useState(0);
 
 
 
   const addStudents = () => {
-    const newUsers: User[] = [...users, {id: uuidv4(), name: name, role: "student", email: email, age: age, postCode: postCode, phone: phone, hobbies: hobbies, url: url, studyMinutes: studyMinutes, taskCode: taskCode, studyLangs: studyLangs, score: score}]
+    const hobbies = [hobby1, hobby2, hobby3]
+    setHobbies(hobbies)
+    const newUsers: User[] = [...users, {id: uuidv4(), name: name, role: "student", email: email, age: age, postCode: postCode, phone: phone, hobbies: [hobby1, hobby2, hobby3], url: url, studyMinutes: studyMinutes, taskCode: taskCode, studyLangs: [studyLang1, studyLang2, studyLang3], score: score}]
     setUsers(newUsers)
   }
 
@@ -88,6 +93,28 @@ const Main: React.FC<{}> = () => {
                 <TabPanel className="tabPanel">
                   <form>
                     <input type="text" value={name} placeholder='name' onChange={(e) => setName(e.target.value)} />
+                    <input type="text" value={email} placeholder='email' onChange={(e) => setEmail(e.target.value)} />
+                    <input type="text" value={age} placeholder='text' onChange={(e) => setAge(Number(e.target.value))} />
+                    <input type="text" value={postCode} placeholder='郵便番号' onChange={(e) => setPostCode(e.target.value)} />
+                    <input type="text" value={phone} placeholder='phone' onChange={(e) => setPhone(e.target.value)} />
+                    <input type="text" value={hobby1} placeholder='hobby1' onChange={(e) => setHobby1(e.target.value)} />
+                    <input type="text" value={hobby2} placeholder='hobby2' onChange={(e) => setHobby2(e.target.value)} />
+                    <input type="text" value={hobby3} placeholder='hobby3' onChange={(e) => setHobby3(e.target.value)} />
+                    <input type="text" value={url} placeholder='url' onChange={(e) => setUrl(e.target.value)} />
+                    <div className='input_area'>
+                      <label htmlFor="taskCode">taskCode 課題番号(101~401)</label>
+                      <input type="text" value={taskCode} placeholder='taskCode' onChange={(e) => setTaskCode(Number(e.target.value))} />
+                    </div>
+
+                    <div className='input_area'>
+                      <label htmlFor="">studyMinutes</label>
+                      <input type="text" value={studyMinutes} placeholder='studyMinutes number' onChange={(e) => setStudyMinutes(Number(e.target.value))} />
+                    </div>
+                    <input type="text" value={studyLang1} placeholder='studyLang1' onChange={(e) => setStudyLang1(e.target.value)} />
+                    <input type="text" value={studyLang2} placeholder='studyLang3' onChange={(e) => setStudyLang2(e.target.value)} />
+                    <input type="text" value={studyLang3} placeholder='studyLang3' onChange={(e) => setStudyLang3(e.target.value)} />
+                    <input type="text" value={score} placeholder='score number' onChange={(e) => setScore(Number(e.target.value))} />
+                    <button onSubmit={handleSubmit}>ユーザー追加</button>
                   </form>
                   <UserList />
                 </TabPanel>
